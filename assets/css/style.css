@@ -2,3 +2,61 @@ body { font-family: Arial, sans-serif; }
 .panel { max-width: 560px; padding: 16px; border: 1px solid #ddd; border-radius: 12px; }
 .row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
 button { padding: 10px 12px; cursor: pointer; }
+
+/* Conteneur principal pour encapsuler tous les styles liés à l'application */
+#app {
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 800px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre de l'application */
+#app h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+/* Conteneur principal des employés */
+#employee-list {
+  margin-top: 20px;
+}
+
+/* Les styles pour un employé */
+.employee {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.employee strong {
+  color: #007bff;
+}
+
+/* Bouton : Ajouter un employé */
+.create-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 auto;
+  display: block;
+  transition: background-color 0.2s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-button:hover {
+  background-color: #0056b3;
+}
