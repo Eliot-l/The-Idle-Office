@@ -21,7 +21,7 @@ export class EmployeeController {
     const employee = this.model.addEmployee(randomName);
 
     // Ajouter l'employé au modèle global
-    const gameModel = new GameModel(); // Accéder au modèle global
+    const gameModel = new gameModel(); // Accéder au modèle global
     gameModel.getState().employees.push(employee);
 
     this.renderEmployees();
