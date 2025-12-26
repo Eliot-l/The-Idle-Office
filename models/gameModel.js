@@ -2,6 +2,7 @@ import { SaveService } from "../services/saveService.js";
 
 export class GameModel {
   constructor() {
+    console.log("Instance de GameModel créée !");
     this.state = this.getDefaultState();
 
     const loaded = SaveService.load();
