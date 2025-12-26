@@ -4,22 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Idle Office</title>
-  <!-- Lien vers le fichier CSS externe -->
-  <link rel="stylesheet" href="./styles/styles.css">
+  <!-- Lien vers le fichier CSS -->
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-  <!-- Conteneur principal pour encapsuler l'application -->
+  <!-- Application principale -->
   <div id="app">
-    <h1>Gestion des Employés</h1>
+    <h1>The Idle Office</h1>
 
-    <!-- Bouton pour créer de nouveaux employés -->
-    <div id="button-container"></div>
+    <!-- Section pour les employés -->
+    <section>
+      <h2>Gestion des employés</h2>
+      <div id="button-container"></div>
+      <div id="employee-list"></div>
+    </section>
 
-    <!-- Liste des employés affichés dynamiquement -->
-    <div id="employee-list"></div>
+    <!-- Section pour le tableau de bord du jeu -->
+    <section>
+      <h2>Tableau de bord</h2>
+      <div id="game-dashboard">
+        <!-- Les données dynamiques du HUD -->
+        <p>Études (Research Points) : <span id="studies">0</span></p>
+        <p>EPS (Earn Per Second) : <span id="eps">0</span></p>
+      </div>
+    </section>
   </div>
 
-  <!-- Script principal pour charger l'application -->
-  <script type="module" src="./controllers/employeeController.js"></script>
+  <!-- Scripts -->
+  <script type="module" src="./assets/js/app.js"></script>
 </body>
 </html>
