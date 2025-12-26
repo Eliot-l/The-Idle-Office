@@ -1,7 +1,7 @@
 export class GameView {
   render(state, derived) {
-    document.getElementById("studies").textContent = state.studies;
-    document.getElementById("eps").textContent = derived.eps;
+    document.getElementById("studies").textContent = state.studies.toFixed(2);
+    document.getElementById("eps").textContent = derived.eps.toFixed(2);
   }
 
   bindProduce(handler) {
@@ -9,7 +9,7 @@ export class GameView {
   }
 
   updateHUD({ studies, eps }) {
-    document.getElementById("studies").textContent = studies;
-    document.getElementById("eps").textContent = eps;
+    document.getElementById("studies").textContent = studies.toFixed(2);
+    document.getElementById("eps").textContent = eps.toFixed(2);
   }
 }

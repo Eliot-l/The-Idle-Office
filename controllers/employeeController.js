@@ -16,10 +16,14 @@ export class EmployeeController {
     const NAMES = [
       "Cyril", "Enzo", "Kyllian", "Fred", "Noa",
       "Loic", "Alex", "Quentin", "Bastien", "Théo",
-      "Florian", "Brice", "Paul", "Georges", "Sarah", "Tim", "Eliot",
     ];
     const randomName = NAMES[Math.floor(Math.random() * NAMES.length)];
-    this.model.addEmployee(randomName);
+    const employee = this.model.addEmployee(randomName);
+
+    // Ajouter l'employé au modèle global
+    const gameModel = new GameModel(); // Accéder au modèle global
+    gameModel.getState().employees.push(employee);
+
     this.renderEmployees();
   }
 

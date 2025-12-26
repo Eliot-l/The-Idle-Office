@@ -7,6 +7,8 @@ export class MainController {
     this.model = new GameModel();
     this.view = new GameView();
     this.employeeController = new EmployeeController();
+    this.lastTimeMs = null;
+    this.rafId = null;
   }
 
   init() {
@@ -18,20 +20,32 @@ export class MainController {
     });
 
     this.employeeController.init();
+    this.startLoop(); // Démarrer la boucle
   }
 
   renderAll() {
-    this.view.render(this.model.getState(), this.getDerived());
+    this.renderHUD();
     this.employeeController.renderEmployees();
   }
 
   renderHUD() {
     const state = this.model.getState();
-    const derived = this.getDerived();
+    const derived = { eps: this.model.getEps() }; // EPS dérivé
     this.view.updateHUD({ studies: state.studies, eps: derived.eps });
   }
 
-  getDerived() {
-    return { eps: this.model.getEps() };
+  startLoop() {
+    const step = (timeMs) => {
+      if (this.lastTimeMs == null) this.lastTimeMs = timeMs;
+      const deltaSeconds = Math.min(0.25, (timeMs - this.lastTimeMs) / 1000);
+      this.lastTimeMs = timeMs;
+
+      this.model.tick(deltaSeconds); // Calculer la production en temps réel
+      this.renderHUD(); // Mettre à jour le HUD
+
+      this.rafId = requestAnimationFrame(step);
+    };
+
+    this.rafId = requestAnimationFrame(step);
   }
 }
