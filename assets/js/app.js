@@ -7,4 +7,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Exposer app pour le débogage dans la console
   window.app = app;
+  console.log("Objet `app` :", app);
 });

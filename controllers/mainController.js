@@ -9,6 +9,7 @@ export class MainController {
     this.employeeController = new EmployeeController();
     this.lastTimeMs = null;
     this.rafId = null;
+    console.log("GameModel attaché à MainController :", this.model);
   }
 
   init() {
