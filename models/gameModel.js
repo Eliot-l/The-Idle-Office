@@ -52,21 +52,13 @@ export class GameModel {
 
   // ----- EPS (UNIQUEMENT via employés)
   getEps() {
-    // Production = somme des stats.production
-    // (on garde le nom "production" pour éviter confusion : c’est ton EPS)
-    let eps = 0;
-    for (const e of this.state.employees) {
-      const p = e?.stats?.production ?? 0;
-      if (typeof p === "number" && isFinite(p)) eps += p;
-    }
-    return Math.max(0, eps);
+    // EPS total = somme des EPS de tous les employés
+    return this.state.employees.reduce((totalEps, e) => totalEps + (e?.EPS || 0), 0);
   }
 
-  // ----- Tick
   tick(deltaSeconds) {
-    const eps = this.getEps();
-    if (eps <= 0) return;
-    this.addStudies(eps * deltaSeconds);
+    const eps = this.getEps(); // Calculer EPS total
+    this.addStudies(eps * deltaSeconds); // Ajouter production à études en temps réel
   }
 
   // ----- Save
