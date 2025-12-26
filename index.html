@@ -12,21 +12,19 @@
   <div id="app">
     <h1>The Idle Office</h1>
 
-    <!-- Section pour les employés -->
-    <section>
-      <h2>Gestion des employés</h2>
-      <div id="button-container"></div>
-      <div id="employee-list"></div>
+    <!-- Section pour le tableau de bord du jeu -->
+    <section id="game-dashboard">
+      <h2>Tableau de bord</h2>
+      <p>Études (Research Points) : <span id="studies">0</span></p>
+      <p>EPS (Earn Per Second) : <span id="eps">0</span></p>
+      <button id="produce-button" class="create-button">Produire +1</button>
     </section>
 
-    <!-- Section pour le tableau de bord du jeu -->
-    <section>
-      <h2>Tableau de bord</h2>
-      <div id="game-dashboard">
-        <!-- Les données dynamiques du HUD -->
-        <p>Études (Research Points) : <span id="studies">0</span></p>
-        <p>EPS (Earn Per Second) : <span id="eps">0</span></p>
-      </div>
+    <!-- Section pour les employés -->
+    <section id="employee-management">
+      <h2>Gestion des employés</h2>
+      <button id="create-employee-button" class="create-button">Créer un employé aléatoire</button>
+      <div id="employee-list"></div>
     </section>
   </div>
 
