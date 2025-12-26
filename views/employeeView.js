@@ -1,6 +1,10 @@
 export class EmployeeView {
   displayEmployees(employees) {
     const container = document.getElementById("employee-list");
+    if (!container) {
+      console.error("Conteneur #employee-list non trouvé dans le DOM.");
+      return;
+    }
     container.innerHTML = "";
     employees.forEach((employee) => {
       const employeeDiv = document.createElement("div");
@@ -20,6 +24,10 @@ export class EmployeeView {
 
   displayCreateButton(onClick) {
     const button = document.getElementById("create-employee-button");
+    if (!button) {
+      console.error("Bouton #create-employee-button non trouvé dans le DOM.");
+      return;
+    }
     button.addEventListener("click", onClick);
   }
 }
