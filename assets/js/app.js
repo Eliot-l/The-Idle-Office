@@ -1,4 +1,6 @@
 import { MainController } from "../../controllers/mainController.js";
 
-const app = new MainController();
-app.init();
+document.addEventListener("DOMContentLoaded", () => {
+  const app = new MainController();
+  app.init();
+});
