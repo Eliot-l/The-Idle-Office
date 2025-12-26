@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>The-Idle-Office</title>
-  <link rel="stylesheet" href="./assets/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Idle Office</title>
+  <!-- Lien vers le fichier CSS externe -->
+  <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
+  <!-- Conteneur principal pour encapsuler l'application -->
+  <div id="app">
+    <h1>Gestion des Employés</h1>
 
-  <h1>The-Idle-Office</h1>
-  <div id="app"></div>
+    <!-- Bouton pour créer de nouveaux employés -->
+    <div id="button-container"></div>
 
-  <script type="module" src="./assets/js/app.js"></script>
+    <!-- Liste des employés affichés dynamiquement -->
+    <div id="employee-list"></div>
+  </div>
+
+  <!-- Script principal pour charger l'application -->
+  <script type="module" src="./controllers/employeeController.js"></script>
 </body>
 </html>

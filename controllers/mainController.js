@@ -1,10 +1,13 @@
 import { GameModel } from "../models/gameModel.js";
 import { GameView } from "../views/gameView.js";
+import { EmployeeController } from "./employeeController.js"; // Import du EmployeeController
 
 export class MainController {
   constructor() {
     this.model = new GameModel();
     this.view = new GameView();
+
+    this.employeeController = new EmployeeController(); // Initialisation du EmployeeController
 
     this.autosaveHandle = null;
     this.lastTimeMs = null;
@@ -13,6 +16,9 @@ export class MainController {
 
   init() {
     this.renderAll();
+
+    // Initialiser le EmployeeController
+    this.employeeController.init();
 
     this.view.bindProduce(() => {
       this.model.addStudies(1);
@@ -35,6 +41,7 @@ export class MainController {
   }
 
   renderAll() {
+    this.renderEmployees(); // Rendre les employés si nécessaire
     this.view.render(this.model.getState(), this.getDerived());
   }
 
@@ -42,6 +49,10 @@ export class MainController {
     const state = this.model.getState();
     const derived = this.getDerived();
     this.view.updateHUD({ studies: state.studies, eps: derived.eps });
+  }
+
+  renderEmployees() {
+    this.employeeController.renderEmployees(); // Appeler le render pour les employés
   }
 
   startLoop() {
