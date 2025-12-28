@@ -3,6 +3,7 @@ export const EMPLOYEE_DATA = [
   { rarity: 1, name: "Enzo", type: 1, EPS: 1 },
   { rarity: 1, name: "Kyllian", type: 1, EPS: 1 },
   { rarity: 1, name: "Fred", type: 1, EPS: 1 },
+  { rarity: 2, name: "Ben", type: 1, EPS: -1 },
   { rarity: 2, name: "Noa", type: 1, EPS: 1 },
   { rarity: 2, name: "Loic", type: 1, EPS: 2 },
   { rarity: 2, name: "Alex", type: 1, EPS: 2 },
@@ -35,6 +36,38 @@ export class Employee {
     this.atk = this.adjustStat(baseStats.atk, this.rarity);
     this.vita = this.adjustStat(baseStats.vita, this.rarity);
     this.ini = this.adjustStat(baseStats.ini, this.rarity);
+
+    // NOUVEAU : caractéristiques additionnelles
+    // Focus : entier [0..100] — initialisé à 100
+    this.focus = 100;
+
+    // État : "actif" | "repos" | "malade" (par défaut "actif")
+    this.state = "actif";
+  }
+
+  // Méthode utilitaire pour changer l'état (valide les options)
+  setState(newState) {
+    const allowed = ["actif", "repos", "malade"];
+    if (!allowed.includes(newState)) {
+      throw new Error(`Invalid state "${newState}". Allowed: ${allowed.join(", ")}`);
+    }
+    this.state = newState;
+  }
+
+  // Focus helpers : clamp entre 0 et 100
+  clampFocus(value) {
+    if (Number.isNaN(Number(value))) return 0;
+    return Math.max(0, Math.min(100, Math.floor(Number(value))));
+  }
+
+  // Définit le focus (sera clampé)
+  setFocus(value) {
+    this.focus = this.clampFocus(value);
+  }
+
+  // Modifie le focus par delta (positif ou négatif) et clamp
+  changeFocus(delta) {
+    this.focus = this.clampFocus(this.focus + Number(delta));
   }
 
   adjustStat(baseStat, rarity) {

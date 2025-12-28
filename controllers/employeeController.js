@@ -1,10 +1,14 @@
 import { EmployeeModel } from "../models/employeeModel.js";
 import { EmployeeView } from "../views/employeeView.js";
+import { EMPLOYEE_DATA } from "../models/employee.js";
 
 export class EmployeeController {
-  constructor() {
+  // maintenant on reçoit gameModel ET gachaService
+  constructor(gameModel, gachaService) {
     this.model = new EmployeeModel();
     this.view = new EmployeeView();
+    this.gameModel = gameModel; // instance du GameModel global
+    this.gacha = gachaService;  // instance du GachaService
   }
 
   init() {
@@ -13,16 +17,31 @@ export class EmployeeController {
   }
 
   handleCreateEmployee() {
-    const NAMES = [
-      "Cyril", "Enzo", "Kyllian", "Fred", "Noa",
-      "Loic", "Alex", "Quentin", "Bastien", "Théo",
-    ];
-    const randomName = NAMES[Math.floor(Math.random() * NAMES.length)];
-    const employee = this.model.addEmployee(randomName);
+    // obtenir rarity via GachaService
+    const rarity = this.gacha ? this.gacha.rollRarity() : 1;
 
-    // Ajouter l'employé au modèle global
-    const gameModel = new gameModel(); // Accéder au modèle global
-    gameModel.getState().employees.push(employee);
+    // choisir un candidat dans EMPLOYEE_DATA correspondant à la rarity
+    const candidates = EMPLOYEE_DATA.filter((e) => e.rarity === rarity);
+    if (candidates.length === 0) {
+      console.error("Aucun employé pour la rarity", rarity);
+      return;
+    }
+    const chosen = candidates[Math.floor(Math.random() * candidates.length)];
+
+    // création via EmployeeModel (retourne instance Employee)
+    const employee = this.model.addEmployee(chosen.name);
+    if (!employee) {
+      console.error("Création d'employé a échoué.");
+      return;
+    }
+
+    // synchroniser état global (GameModel)
+    const state = this.gameModel.getState();
+    state.employees = state.employees || [];
+    state.employees.push(employee);
+
+    // sauvegarder l'état si le model propose save
+    if (typeof this.gameModel.save === "function") this.gameModel.save();
 
     this.renderEmployees();
   }

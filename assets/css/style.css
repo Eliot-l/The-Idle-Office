@@ -60,3 +60,66 @@ button { padding: 10px 12px; cursor: pointer; }
 .create-button:hover {
   background-color: #0056b3;
 }
+
+/* Employee meta layout */
+.employee-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+.employee-main { flex: 1; }
+
+/* Focus bar */
+.focus-label {
+  font-size: 13px;
+  margin-bottom: 4px;
+  text-align: right;
+}
+.focus-value {
+  font-weight: 700;
+  margin-left: 6px;
+}
+
+.focus-bar {
+  width: 140px;
+  height: 12px;
+  background: #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 6px;
+}
+
+.focus-fill {
+  height: 100%;
+  background: linear-gradient(90deg,#5cb85c,#4cae4c); /* vert par défaut */
+  transition: width 0.25s linear, background 0.25s linear;
+}
+
+/* états faibles / zéro */
+.focus-fill.focus-low {
+  background: linear-gradient(90deg,#f0ad4e,#ec971f); /* orange */
+}
+.focus-fill.focus-zero {
+  background: linear-gradient(90deg,#d9534f,#c9302c); /* rouge/gris quand 0 */
+}
+
+/* State label coloring */
+.state-label {
+  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: capitalize;
+}
+.state-actif { background: rgba(76,175,80,0.12); color: #2e7d32; border: 1px solid rgba(76,175,80,0.16); }
+.state-repos { background: rgba(255,193,7,0.08); color: #856404; border: 1px solid rgba(255,193,7,0.12); }
+.state-malade { background: rgba(220,53,69,0.08); color: #a71d2a; border: 1px solid rgba(220,53,69,0.12); }
+
+/* Petit ajustement responsive */
+@media (max-width: 580px) {
+  .employee-row { flex-direction: column; align-items: stretch; }
+  .focus-bar { width: 100%; }
+}
