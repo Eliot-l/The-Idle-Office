@@ -32,12 +32,26 @@
       </div>
     </section>
 
-    <!-- Section pour les employés -->
+    <!-- Section pour les employés et l'Agency -->
     <section id="employee-management">
       <h2>Gestion des employés</h2>
-      <!-- Bouton pour créer un employé -->
       <button id="create-employee-button" class="create-button">Créer un employé aléatoire</button>
-      <!-- Conteneur pour afficher les employés -->
+
+      <!-- Agency panel -->
+      <div id="agency-panel" class="panel" style="margin-top:12px;">
+        <h3>Agence</h3>
+        <p>Niveau : <span id="agency-level">1</span></p>
+        <p>Slots : <span id="agency-slots">1</span></p>
+        <p>Assignés : <span id="agency-assigned-count">0</span></p>
+        <div class="row">
+          <button id="agency-levelup-button" class="create-button">Monter niveau Agency</button>
+        </div>
+        <h4 style="margin-top:12px;">Employés assignés</h4>
+        <div id="agency-list"></div>
+      </div>
+
+      <!-- Pool d'employés -->
+      <h4 style="margin-top:12px;">Pool d'employés</h4>
       <div id="employee-list"></div>
     </section>
   </div>

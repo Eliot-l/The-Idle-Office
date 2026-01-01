@@ -48,6 +48,7 @@ export class EmployeeController {
 
   renderEmployees() {
     const employees = this.model.getEmployees();
-    this.view.displayEmployees(employees);
+    const agency = this.gameModel.getAgency(); // passer l'agency pour que la vue sépare pool / assignés
+    this.view.displayEmployees(employees, agency);
   }
 }

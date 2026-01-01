@@ -2,6 +2,9 @@ import { GameModel } from "../models/gameModel.js";
 import { GameView } from "../views/gameView.js";
 import { EmployeeController } from "./employeeController.js";
 import { GachaService } from "../services/gachaService.js";
+import { AgencyController } from "./agencyController.js";
+import { AgencyService } from "../services/agencyService.js";
+import { NotificationView } from "../views/notificationView.js";
 
 export class MainController {
   constructor() {
@@ -14,8 +17,14 @@ export class MainController {
       this.model.save();
     });
 
+    this.notification = new NotificationView();
+    this.agencyService = new AgencyService(this.model, this.notification);
+
     this.view = new GameView();
     this.employeeController = new EmployeeController(this.model, this.gacha);
+    // pass agencyService + notifier into agencyController
+    this.agencyController = new AgencyController(this.model, this.employeeController, this.agencyService, this.notification);
+
     this.lastTimeMs = null;
     this.rafId = null;
   }
@@ -49,13 +58,46 @@ export class MainController {
       }
     );
 
+    // init controllers
     this.employeeController.init();
+
+    // wire employee view assign -> agency assign/unassign and refresh both views
+    if (this.employeeController.view && typeof this.employeeController.view.bindToggleAssign === "function") {
+      this.employeeController.view.bindToggleAssign((empId) => {
+        const agency = this.model.getState().agency;
+        const assignedIds = (agency.assignedIds || []).map(Number);
+        const isAssigned = assignedIds.includes(Number(empId));
+
+        // Use AgencyService when available so it can show notifications
+        let res = { ok: false };
+        if (isAssigned) {
+          res = this.agencyService ? this.agencyService.unassign(empId) : this.model.unassignEmployeeFromAgency(empId);
+        } else {
+          res = this.agencyService ? this.agencyService.assign(empId) : this.model.assignEmployeeToAgency(empId);
+        }
+
+        // Fallback notification if AgencyService wasn't present to handle it
+        if (!res?.ok && !this.agencyService && this.notification) {
+          const reason = res?.reason || "unknown";
+          if (reason === "no_slots") this.notification.show("Pas assez de slots dans l'agence.", { type: "warn" });
+          else if (reason === "already_assigned") this.notification.show("Employé déjà assigné.", { type: "info" });
+          else this.notification.show("Assignation impossible.", { type: "error" });
+        }
+
+        this.employeeController.renderEmployees();
+        this.agencyController.refresh();
+      });
+    }
+
+    this.agencyController.init();
+
     this.startLoop();
   }
 
   renderAll() {
     this.renderHUD();
     this.employeeController.renderEmployees();
+    this.agencyController.refresh();
   }
 
   renderHUD() {
